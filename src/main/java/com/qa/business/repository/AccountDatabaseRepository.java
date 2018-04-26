@@ -77,5 +77,19 @@ public class AccountDatabaseRepository implements IAccountRepository {
 		}
 	}
 
+	@Override
+	@Transactional(REQUIRED)
+	public String updateAnAccount(String accountCorrection) {
+		Account correctAccount = util.getObjectForJSON(accountCorrection, Account.class);
+		Account wrongAccount = findAnAccount(correctAccount.getId());
+		if(wrongAccount != null) {
+			manager.merge(correctAccount);
+			return "{\"message\":\"account updated\"}";
+		}
+		else {
+			return "{\"message\":\"account not found, cannot update\"}";
+		}
+	}
+
 
 }
