@@ -19,4 +19,9 @@ public class AccountService implements IAccountService {
 		return repo.getAnAccount(id);
 	}
 
+	@Override
+	public String createAnAccount(String accountJSON) {
+		return repo.createAnAccount(accountJSON);
+	}
+
 }
