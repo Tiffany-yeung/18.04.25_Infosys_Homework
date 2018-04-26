@@ -64,5 +64,18 @@ public class AccountDatabaseRepository implements IAccountRepository {
 		return "{\"message\":\"account created\"}";
 	}
 
+	@Override
+	@Transactional(REQUIRED)
+	public String deleteAnAccount(Long id) {
+		Account accountToDelete = findAnAccount(id);
+		if(accountToDelete != null) {
+			manager.remove(accountToDelete);
+			return "{\"message\":\"account deleted\"}";
+		}
+		else {
+			return "{\"message\":\"account not found, cannot be deleted\"}";
+		}
+	}
+
 
 }
