@@ -1,11 +1,14 @@
 package com.qa.business.repository;
 
+import static javax.transaction.Transactional.TxType.REQUIRED;
+
 import java.util.Collection;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 
 import org.apache.log4j.Logger;
 
@@ -51,6 +54,14 @@ public class AccountDatabaseRepository implements IAccountRepository {
 		else {
 			return "{\"message\":\"account not found\"}";
 		}
+	}
+
+	@Override
+	@Transactional(REQUIRED)
+	public String createAnAccount(String accountJSON) {
+		Account account = util.getObjectForJSON(accountJSON, Account.class);
+		manager.persist(account);
+		return "{\"message\":\"account created\"}";
 	}
 
 
