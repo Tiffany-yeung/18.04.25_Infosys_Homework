@@ -38,4 +38,20 @@ public class AccountDatabaseRepository implements IAccountRepository {
 		return util.getJSONForObject(accounts);
 	}
 
+	private Account findAnAccount(Long id) {
+		return manager.find(Account.class, id);
+	}
+	
+	@Override
+	public String getAnAccount(Long id) {
+		Account account = findAnAccount(id);
+		if(account!=null) {
+			return util.getJSONForObject(account);
+		}
+		else {
+			return "{\"message\":\"account not found\"}";
+		}
+	}
+
+
 }

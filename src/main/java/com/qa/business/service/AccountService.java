@@ -14,4 +14,9 @@ public class AccountService implements IAccountService {
 		return repo.getAllAccounts();
 	}
 
+	@Override
+	public String getAnAccount(Long id) {
+		return repo.getAnAccount(id);
+	}
+
 }
